@@ -1,0 +1,60 @@
+## AMEX      (15 digitos) todos inician 34 o 37
+#   MASTERCARD  (16 digitos) mayoria 51,52,53,54,55
+# VISA   (<13 y 16) todos comienzan con 4
+# INVALID
+#entrada completamente numerica
+
+#sugerencias
+#
+
+## pedir un numero introducido por el usuario
+
+#incializar vector de llamadas amex,mastercar, visa, invalid
+
+
+
+
+
+def func(numT):
+
+    lista=[]
+    num=[]
+    res=numT%10;
+    while(res!=0 or numT!=0):
+        
+        
+        lista.append(res)
+        numT=int(numT/10)
+        res=numT%10;
+    lista=lista[::-1]
+    num =lista[0:len(lista)]
+    long = len(lista);
+
+    if(long%2==0):
+          num.append(0)
+
+    check_digit = 10 - sum(num[-2::-2] + [sum(divmod(d * 2, 10)) for d in num[::-2]]) % 10
+    if(check_digit%2==0):
+               if(long==15 and ((num[0]*10+num[1])==34 or (num[0]*10+num[1])==37 )):
+                     return  "AMEX"
+               if(long==16 and (50<(num[0]*10+num[1])<56 or (num[0]*10+num[1])==22)):
+                     return "MASTERCARD"
+               if(13<long<=16 and (num[0]==4)):
+                     return "VISA"
+            
+               else:
+                     return "INVALID"
+                     
+
+    else:
+      return "INVALID"
+
+    
+
+while True:
+      numT = int(input("Numero de Tarjeta: "))
+
+      print(func(numT))
+
+
+
